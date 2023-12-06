@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour
     bool isGameOver = false;
     int maxEnemies = 1;
     int minEnemies = 0;
-    public int health = 0;
     public int score = 0;
     [SerializeField] GameObject enemyPrefab;
     // Start is called before the first frame update
@@ -28,7 +27,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isGameOver && minEnemies > FindObjectsOfType<EnemyController>().Length )
+        int enemies = FindObjectsOfType<EnemyController>().Length;
+        if (!isGameOver && enemies <= minEnemies)
         {
             spawnNextWave(maxEnemies++ - minEnemies);
         }
@@ -46,6 +46,5 @@ public class GameManager : MonoBehaviour
             //Spawn enemy
             Instantiate(enemyPrefab, spawnPos, enemyPrefab.transform.rotation);
         }
-        minEnemies++;
     }
 }

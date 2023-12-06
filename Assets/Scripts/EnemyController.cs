@@ -7,10 +7,10 @@ using UnityEngine.VFX;
 
 public class EnemyController : MonoBehaviour
 {
-    int health = GameManager.singleton.health;
     Transform target;
     NavMeshAgent agent;
     Animator animator;
+    Rigidbody rb;
     //[SerializeField] GameObject potion;
     // Start is called before the first frame update
     void Start()
@@ -18,6 +18,7 @@ public class EnemyController : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("target").transform;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -29,13 +30,15 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
+            animator.SetBool("isAttacking", false);
+            animator.SetFloat("speed", agent.velocity.magnitude);
             agent.destination = target.position;
         }
     }
 
     bool isInRange()
     {
-        if(Vector3.Distance(agent.destination, target.position) < 2)
+        if(Vector3.Distance(transform.position, target.position) < 5.2f)
         {
             return true;
         }
@@ -44,8 +47,11 @@ public class EnemyController : MonoBehaviour
 
     private void attack()
     {
+        transform.LookAt(target.position);
+        animator.SetFloat("speed", 0);
         animator.SetTrigger("attack");
-        Destroy(this.gameObject, 1f);
+        Destroy(gameObject, 3f);
+        //agent.isStopped = true;;
         Debug.Log("attacking player");
     }
 
@@ -55,16 +61,14 @@ public class EnemyController : MonoBehaviour
         {
             //Instantiate(health);
         }
+        //GameManager.singleton.score++;
+        Debug.Log(GameManager.singleton.score);
     }
 
     private void OnMouseDown()
     {
-        if (health > 0) health--;
-        else
-        {
-            Destroy(this.gameObject);
-            GameManager.singleton.health++;
-            GameManager.singleton.score++;
-        }
+        Destroy(gameObject);
+        Debug.Log("You killed this enemy");
+        GameManager.singleton.score++;
     }
 }
