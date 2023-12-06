@@ -276,6 +276,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 140008607}
   m_CullTransparentMesh: 1
+--- !u!1 &384200680
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 384200682}
+  - component: {fileID: 384200681}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &384200681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384200680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c48bc23de8334704888df14dd9b409a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  score: 0
+  enemyPrefab: {fileID: 1194746518052604534, guid: 37c0619e0ba6b6948a3671d00b42303b, type: 3}
+--- !u!4 &384200682
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384200680}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.2638736, y: -7.627836, z: -0.10363588}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &516699785
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,8 +577,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: -0.39450034, y: 0.5820707, z: -0.38352883, w: -0.5987227}
+  m_LocalPosition: {x: 6.0990806, y: 14.1863785, z: -0.36777186}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -833,6 +880,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c48bc23de8334704888df14dd9b409a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
+  score: 0
+  enemyPrefab: {fileID: 0}
 --- !u!1 &1917101180
 GameObject:
   m_ObjectHideFlags: 0
@@ -1016,3 +1066,4 @@ SceneRoots:
   - {fileID: 1996188721}
   - {fileID: 1406293746}
   - {fileID: 1917101183}
+  - {fileID: 384200682}

@@ -1951,7 +1951,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1235956385}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1431632407}
+        m_TargetAssemblyTypeName: StartMenu, Assembly-CSharp
+        m_MethodName: OpenSettingsPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1235956385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2467,8 +2479,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45a5a7bb13fd0724cae0e8eb46593754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewardPanel: {fileID: 0}
-  RewardText: {fileID: 0}
+  rewardPanel: {fileID: 952293599}
+  settingsPanel: {fileID: 1653663083}
+  RewardText: {fileID: 559854776}
+  musicSlider: {fileID: 988773725}
+  soundSlider: {fileID: 749294691}
 --- !u!1 &1443603129
 GameObject:
   m_ObjectHideFlags: 0
@@ -2700,7 +2715,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1585099603}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1431632407}
+        m_TargetAssemblyTypeName: StartMenu, Assembly-CSharp
+        m_MethodName: ClaimDailyReward
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1585099603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3520,7 +3547,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1890916880}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1431632407}
+        m_TargetAssemblyTypeName: StartMenu, Assembly-CSharp
+        m_MethodName: CloseSettingsPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1890916880
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -28,10 +28,9 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isGameOver && FindObjectsOfType<EnemyController>().Length <=minEnemies)
+        if (!isGameOver && minEnemies > FindObjectsOfType<EnemyController>().Length )
         {
             spawnNextWave(maxEnemies++ - minEnemies);
-      minEnemies++;
         }
     }
 
@@ -47,5 +46,6 @@ public class GameManager : MonoBehaviour
             //Spawn enemy
             Instantiate(enemyPrefab, spawnPos, enemyPrefab.transform.rotation);
         }
+        minEnemies++;
     }
 }

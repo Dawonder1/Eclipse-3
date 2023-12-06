@@ -59,9 +59,12 @@ public class EnemyController : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if(health > 0) health--;
-        else Destroy(this.gameObject);
-        GameManager.singleton.health++;
-        GameManager.singleton.score++;
+        if (health > 0) health--;
+        else
+        {
+            Destroy(this.gameObject);
+            GameManager.singleton.health++;
+            GameManager.singleton.score++;
+        }
     }
 }

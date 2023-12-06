@@ -4,14 +4,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class StartMenu : MonoBehaviour
 {
     int dailyReward = 200;
     [SerializeField] GameObject rewardPanel;
+    [SerializeField] GameObject settingsPanel;
     [SerializeField] TextMeshProUGUI RewardText;
+    [SerializeField] Slider musicSlider;
+    [SerializeField] Slider soundSlider;
     public void play(){
-        SceneManager.GetSceneByName("Gym");
+        SceneManager.LoadScene("Gym");
     }
 
     public void exit(){
@@ -24,7 +28,6 @@ public class StartMenu : MonoBehaviour
         int coins = PlayerPrefs.GetInt("coinsOwned",0);
         PlayerPrefs.SetInt("coinsOwned",coins + dailyReward);
         rewardPanel.SetActive(false);
-        //
     }
 
     public void DailyReward(){
@@ -32,11 +35,24 @@ public class StartMenu : MonoBehaviour
         string noRewardText = "Daily Reward Claimed!\nCome back Tomorrow.";
         rewardPanel.SetActive(true);
         if(PlayerPrefs.GetString("lastPlayDate","None") == DateTime.Today.ToString()){
-            RewardText.text = rewardText;
+            RewardText.text = noRewardText;
         }
         else
         {
-            RewardText.text = noRewardText;
+            RewardText.text = rewardText;
         }
+    }
+    public void OpenSettingsPanel()
+    {
+        settingsPanel.SetActive(true);
+        musicSlider.value = PlayerPrefs.GetFloat("musicVolume");
+        soundSlider.value = PlayerPrefs.GetFloat("soundVolume");
+    }
+
+    public void CloseSettingsPanel()
+    {
+        PlayerPrefs.SetFloat("musicVolume", musicSlider.value);
+        PlayerPrefs.SetFloat("soundVolume", soundSlider.value);
+        settingsPanel.SetActive(false);
     }
 }
