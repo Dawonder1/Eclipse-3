@@ -39,12 +39,17 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < numEnemy; i++)
         {
             //Generate Random Position
-            float spawnPosX = Random.Range(-5, 5);
-            float spawnPosZ = Random.Range(-5, 5);
+            float spawnPosX = Random.Range(-range(), range());
+            float spawnPosZ = Random.Range(-range(), range());
             Vector3 spawnPos = new Vector3(spawnPosX, 0, spawnPosZ);
 
             //Spawn enemy
             Instantiate(enemyPrefab, spawnPos, enemyPrefab.transform.rotation);
         }
+    }
+
+    float range()
+    {
+        return Random.Range(10, 25);
     }
 }
