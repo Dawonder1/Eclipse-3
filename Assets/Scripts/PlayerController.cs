@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    int lives = 3;
+    public int lives = 3;
     Rigidbody rb;
     [SerializeField] GameObject gameOverPanel;
-    [SerializeField] ParticleSystem damagefx, healthfx;
+    public ParticleSystem damagefx, healthfx;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,14 +22,11 @@ public class PlayerController : MonoBehaviour
   
     }
 
-    public IEnumerator takeDamage()
+    public void takeDamage()
     {
         lives--;
         damagefx.Play();
-        if (lives <= 0) gameOver();
-        yield return new WaitForSeconds(1f);
-        damagefx.Stop();
-        
+        if (lives <= 0) gameOver();        
     }
     void gameOver()
     {

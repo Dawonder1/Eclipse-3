@@ -82,6 +82,6 @@ public class EnemyController : MonoBehaviour
 
     void dealDamage()
     {
-        StartCoroutine(player.GetComponent<PlayerController>().takeDamage());
+        player.GetComponent<PlayerController>().takeDamage();
     }
 }

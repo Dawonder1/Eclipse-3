@@ -9,6 +9,7 @@ public enum PowerUpType
     scoreDoubler,
     bomb,
     slowDown,
+    health,
 }
 public class PowerUp : MonoBehaviour
 {
@@ -19,25 +20,24 @@ public class PowerUp : MonoBehaviour
     {
         if(powerType == PowerUpType.bomb)
         {
-            for(int i = 0; i < FindObjectsOfType<EnemyController>().Length; i++)
-            {
-                EnemyController enemy = FindObjectsOfType<EnemyController>()[i];
-                if( Vector3.Distance(enemy.transform.position, transform.position) <= range) Destroy(enemy.gameObject);
-                Debug.Log(FindObjectsOfType<EnemyController>().Length - i);
-            }
-            Destroy(gameObject);
+            destroyNearbyEnemies();
         }
 
-        if(powerType == PowerUpType.scoreDoubler)
+        else if(powerType == PowerUpType.scoreDoubler)
         {
             StartCoroutine(doubleScores());
             transform.position = new Vector3(transform.position.x, -10f, transform.position.z);
         }
 
-        if (powerType == PowerUpType.slowDown)
+        else if (powerType == PowerUpType.slowDown)
         {
             StartCoroutine(slowDownEnemies());
             transform.position = new Vector3(transform.position.x, -10f, transform.position.z);
+        }
+
+        else if(powerType == PowerUpType.health)
+        {
+            increaseHealth();
         }
     }
 
@@ -64,6 +64,24 @@ public class PowerUp : MonoBehaviour
             enemy.gameObject.GetComponent<NavMeshAgent>().speed = 2;
         }
         Debug.Log("Reverting Speed");
+        Destroy(gameObject);
+    }
+
+    void destroyNearbyEnemies()
+    {
+        for (int i = 0; i < FindObjectsOfType<EnemyController>().Length; i++)
+        {
+            EnemyController enemy = FindObjectsOfType<EnemyController>()[i];
+            if (Vector3.Distance(enemy.transform.position, transform.position) <= range) Destroy(enemy.gameObject);
+            Debug.Log(FindObjectsOfType<EnemyController>().Length - i);
+        }
+        Destroy(gameObject);
+    }
+
+    void increaseHealth()
+    {
+        FindObjectOfType<PlayerController>().lives++;
+        FindObjectOfType<PlayerController>().healthfx.Play();
         Destroy(gameObject);
     }
 }
