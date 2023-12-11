@@ -318,7 +318,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 0
   range: 5
-  duration: 0
+  duration: 5
 --- !u!1 &140008607
 GameObject:
   m_ObjectHideFlags: 0
@@ -1712,13 +1712,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 351007064747801185, guid: 580c86132be049b4ca4798293e869afe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -11.51
+      objectReference: {fileID: 0}
+    - target: {fileID: 351007064747801185, guid: 580c86132be049b4ca4798293e869afe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 33.84
+      objectReference: {fileID: 0}
     - target: {fileID: 5778869364466398399, guid: 580c86132be049b4ca4798293e869afe, type: 3}
       propertyPath: m_Name
       value: Spider_Flower
       objectReference: {fileID: 0}
     - target: {fileID: 6367918934021931660, guid: 580c86132be049b4ca4798293e869afe, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 6367918934021931660, guid: 580c86132be049b4ca4798293e869afe, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1726,7 +1734,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6367918934021931660, guid: 580c86132be049b4ca4798293e869afe, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.73
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 6367918934021931660, guid: 580c86132be049b4ca4798293e869afe, type: 3}
       propertyPath: m_LocalRotation.w

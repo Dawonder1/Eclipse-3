@@ -25,24 +25,28 @@ public class PowerUp : MonoBehaviour
                 if( Vector3.Distance(enemy.transform.position, transform.position) <= range) Destroy(enemy.gameObject);
                 Debug.Log(FindObjectsOfType<EnemyController>().Length - i);
             }
+            Destroy(gameObject);
         }
 
         if(powerType == PowerUpType.scoreDoubler)
         {
-            GameManager.singleton.doubleScore = true;
-            StartCoroutine(turnOfScoreBooster());
+            StartCoroutine(doubleScores());
+            transform.position = new Vector3(transform.position.x, -10f, transform.position.z);
         }
 
-        if(powerType == PowerUpType.slowDown)
+        if (powerType == PowerUpType.slowDown)
         {
             StartCoroutine(slowDownEnemies());
+            transform.position = new Vector3(transform.position.x, -10f, transform.position.z);
         }
     }
 
-    IEnumerator turnOfScoreBooster()
+    IEnumerator doubleScores()
     {
+        GameManager.singleton.doubleScore = true;
         yield return new WaitForSeconds(duration);
         GameManager.singleton.doubleScore = false;
+        Destroy(gameObject);
     }
 
     IEnumerator slowDownEnemies()
@@ -58,7 +62,8 @@ public class PowerUp : MonoBehaviour
         foreach(EnemyController enemy in enemies)
         {
             enemy.gameObject.GetComponent<NavMeshAgent>().speed = 2;
-
         }
+        Debug.Log("Reverting Speed");
+        Destroy(gameObject);
     }
 }
