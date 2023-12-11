@@ -11,8 +11,10 @@ public class GameManager : MonoBehaviour
     int minEnemies = 0;
     public int score = 0;
     [SerializeField] GameObject enemyPrefab;
+    public float musicVolume, soundVolume;
+    public bool doubleScore = false;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (singleton == null)
         {
@@ -22,6 +24,9 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this);
         }
+        PlayerPrefs.GetFloat("soundVolume", soundVolume);
+        PlayerPrefs.GetFloat("musicVolume", musicVolume);
+        GetComponent<AudioSource>().volume = musicVolume;
     }
 
     // Update is called once per frame

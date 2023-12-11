@@ -7,21 +7,26 @@ using UnityEngine.VFX;
 
 public class EnemyController : MonoBehaviour
 {
-    Transform target;
+    float soundVolume;
+    Transform player;
     NavMeshAgent agent;
     Animator animator;
     Rigidbody rb;
+    AudioSource audioSource;
+    [SerializeField] GameObject[] powerUp;
     //[SerializeField] GameObject potion;
-    // Start is called before the first frame update
+
     void Start()
     {
-        target = GameObject.FindGameObjectWithTag("target").transform;
+        soundVolume = GameManager.singleton.soundVolume;
+        audioSource = GetComponent<AudioSource>();
+        audioSource.volume = soundVolume;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (isInRange())
@@ -32,13 +37,13 @@ public class EnemyController : MonoBehaviour
         {
             animator.SetBool("isAttacking", false);
             animator.SetFloat("speed", agent.velocity.magnitude);
-            agent.destination = target.position;
+            agent.destination = player.position;
         }
     }
 
     bool isInRange()
     {
-        if(Vector3.Distance(transform.position, target.position) < 5.2f)
+        if(Vector3.Distance(transform.position, player.position) < 5.2f)
         {
             return true;
         }
@@ -47,28 +52,36 @@ public class EnemyController : MonoBehaviour
 
     private void attack()
     {
-        transform.LookAt(target.position);
+        transform.LookAt(player.position);
+        audioSource.Play();
         animator.SetFloat("speed", 0);
         animator.SetTrigger("attack");
-        Destroy(gameObject, 3f);
-        //agent.isStopped = true;;
-        Debug.Log("attacking player");
+
+        Destroy(gameObject, 2);
+        
     }
 
     private void OnDestroy()
     {
         if(Random.Range(0, 1f) <= 0.05)
         {
-            //Instantiate(health);
+            Instantiate(powerUp[Random.Range(0,1)] );
         }
-        //GameManager.singleton.score++;
+
         Debug.Log(GameManager.singleton.score);
     }
 
     private void OnMouseDown()
     {
         Destroy(gameObject);
-        Debug.Log("You killed this enemy");
+
+        //update score
         GameManager.singleton.score++;
+        if(GameManager.singleton.doubleScore) GameManager.singleton.score++;
+    }
+
+    void dealDamage()
+    {
+        StartCoroutine(player.GetComponent<PlayerController>().takeDamage());
     }
 }

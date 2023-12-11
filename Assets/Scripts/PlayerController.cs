@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,7 @@ public class PlayerController : MonoBehaviour
     int lives = 3;
     Rigidbody rb;
     [SerializeField] GameObject gameOverPanel;
+    [SerializeField] ParticleSystem damagefx, healthfx;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,13 +22,19 @@ public class PlayerController : MonoBehaviour
   
     }
 
-    void takeDamage()
+    public IEnumerator takeDamage()
     {
         lives--;
-        if(lives <= 0)gameOver();
+        damagefx.Play();
+        if (lives <= 0) gameOver();
+        yield return new WaitForSeconds(1f);
+        damagefx.Stop();
+        
     }
     void gameOver()
     {
+        //isGameOver = true;
+        //
         gameOverPanel.SetActive(true);
     }
     void playAgain()
