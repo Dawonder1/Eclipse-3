@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Animations;
 using UnityEngine.UIElements;
 using UnityEngine.VFX;
 
@@ -11,7 +12,6 @@ public class EnemyController : MonoBehaviour
     Transform player;
     NavMeshAgent agent;
     Animator animator;
-    Rigidbody rb;
     AudioSource audioSource;
     [SerializeField] GameObject[] powerUp;
     //[SerializeField] GameObject potion;
@@ -24,7 +24,6 @@ public class EnemyController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -43,11 +42,7 @@ public class EnemyController : MonoBehaviour
 
     bool isInRange()
     {
-        if(Vector3.Distance(transform.position, player.position) < 5.2f)
-        {
-            return true;
-        }
-        return false;
+        return Vector3.Distance(transform.position, player.position) < 5.2f;
     }
 
     private void attack()
@@ -58,26 +53,28 @@ public class EnemyController : MonoBehaviour
         animator.SetTrigger("attack");
 
         Destroy(gameObject, 2);
-        
     }
 
     private void OnDestroy()
     {
-        if(Random.Range(0, 1f) <= 0.05)
+        //spawn random powerup
+        if(Random.Range(0, 1f) <= 0.1f)
         {
-            Instantiate(powerUp[Random.Range(0,1)] );
+            int prefabIndex = Random.Range(0, powerUp.Length);
+            Instantiate(powerUp[prefabIndex], transform.position, powerUp[prefabIndex].transform.rotation);
         }
-
-        Debug.Log(GameManager.singleton.score);
     }
 
     private void OnMouseDown()
     {
-        Destroy(gameObject);
-
+        if (GameManager.singleton.isGameOver) return;
         //update score
         GameManager.singleton.score++;
-        if(GameManager.singleton.doubleScore) GameManager.singleton.score++;
+        if (GameManager.singleton.doubleScore) GameManager.singleton.score++;
+        FindObjectOfType<UIManager>().updateScore(GameManager.singleton.score);
+
+        //kill enemy
+        Destroy(gameObject);        
     }
 
     void dealDamage()

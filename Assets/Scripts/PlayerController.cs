@@ -6,40 +6,28 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public int lives = 3;
+    public int lives = 5;
     Rigidbody rb;
+    public bool isShielded;
     [SerializeField] GameObject gameOverPanel;
     public ParticleSystem damagefx, healthfx;
     // Start is called before the first frame update
     void Start()
     {
+        isShielded = false;
         rb = GetComponent<Rigidbody>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-  
     }
 
     public void takeDamage()
     {
-        lives--;
+        if (isShielded) return;
+        FindObjectOfType<UIManager>().removeLive(lives--);
         damagefx.Play();
         if (lives <= 0) gameOver();        
     }
+    
     void gameOver()
     {
-        //isGameOver = true;
-        //
-        gameOverPanel.SetActive(true);
-    }
-    void playAgain()
-    {
-        SceneManager.LoadScene("Gym");
-    }
-    void goToMainMenu()
-    {
-        SceneManager.LoadScene("MainMenu");
+        GameManager.singleton.isGameOver = true;
     }
 }

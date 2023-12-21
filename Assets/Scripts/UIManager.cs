@@ -1,18 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] GameObject[] lives;
+    [SerializeField] GameObject gameOverPanel;
+    [SerializeField] TextMeshProUGUI scoreText;
+
+    public void updateScore(int score)
     {
-        
+        scoreText.text = "Score: " + score; 
+    }
+    public void removeLive(int live)
+    {
+        lives[live-1].SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void addLive(int livesNow)
     {
-        
+        lives[livesNow-1].SetActive(true);
+    }
+    void gameOver()
+    {
+        //isGameOver = true;
+        //
+        gameOverPanel.SetActive(true);
+    }
+    void playAgain()
+    {
+        SceneManager.LoadScene("Gym");
+    }
+    void goToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }

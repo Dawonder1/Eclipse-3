@@ -6,14 +6,14 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager singleton;
 
-    bool isGameOver = false;
+    public bool isGameOver = false;
     int maxEnemies = 1;
     int minEnemies = 0;
     public int score = 0;
     [SerializeField] GameObject enemyPrefab;
     public float musicVolume, soundVolume;
     public bool doubleScore = false;
-    // Start is called before the first frame update
+
     void Awake()
     {
         if (singleton == null)
@@ -29,7 +29,6 @@ public class GameManager : MonoBehaviour
         GetComponent<AudioSource>().volume = musicVolume;
     }
 
-    // Update is called once per frame
     void Update()
     {
         int enemies = FindObjectsOfType<EnemyController>().Length;

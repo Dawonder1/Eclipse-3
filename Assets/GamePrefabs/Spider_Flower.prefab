@@ -896,7 +896,6 @@ GameObject:
   - component: {fileID: 4296309647152231361}
   - component: {fileID: 351933267232987015}
   - component: {fileID: 7834012708234946266}
-  - component: {fileID: 5880374465044412349}
   - component: {fileID: 7554280787129597357}
   m_Layer: 0
   m_Name: Spider_Flower
@@ -933,7 +932,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 9407fec50666b7546900a3898e0c472b, type: 3}
   m_Controller: {fileID: 9100000, guid: d9f33e1258c590344a39e00906afd4ae, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -955,7 +954,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1929170b408798942ba35fcf8f2706af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerUp: []
+  powerUp:
+  - {fileID: 1887448868187280899, guid: c9021e3177a6ace4f96ba87f4632cb5b, type: 3}
+  - {fileID: 4006057896883460838, guid: a364d5221d9b13d4891ed963f6a07fcd, type: 3}
+  - {fileID: 5191195222956775451, guid: 067d1e10609cd7c4ca3b5621d489a539, type: 3}
+  - {fileID: 849740173353886575, guid: c0cdb6c5f91709041924b45b6cc934f6, type: 3}
+  - {fileID: 4986270515196752088, guid: 2fde4ac70052b9743919d472f8f2790b, type: 3}
 --- !u!195 &351933267232987015
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -970,7 +974,7 @@ NavMeshAgent:
   m_Acceleration: 1000
   avoidancePriority: 50
   m_AngularSpeed: 1200
-  m_StoppingDistance: 1
+  m_StoppingDistance: 4
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -993,39 +997,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.010488, y: 1.44, z: 1}
-  m_Center: {x: -0.0019004345, y: 0.72, z: 0}
---- !u!54 &5880374465044412349
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5778869364466398399}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Size: {x: 2, y: 1.44, z: 2.3}
+  m_Center: {x: 0, y: 0.72, z: 0.07}
 --- !u!82 &7554280787129597357
 AudioSource:
   m_ObjectHideFlags: 0

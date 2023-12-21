@@ -10,12 +10,20 @@ public enum PowerUpType
     bomb,
     slowDown,
     health,
+    shield,
 }
 public class PowerUp : MonoBehaviour
 {
     [SerializeField] PowerUpType powerType;
     [SerializeField] float range;
     [SerializeField] float duration;
+    [SerializeField] int health;
+    PlayerController playerController;
+
+    void Start()
+    {
+        playerController = FindObjectOfType<PlayerController>();
+    }
     private void OnMouseDown()
     {
         if(powerType == PowerUpType.bomb)
@@ -38,6 +46,11 @@ public class PowerUp : MonoBehaviour
         else if(powerType == PowerUpType.health)
         {
             increaseHealth();
+        }
+
+        else if(powerType == PowerUpType.shield)
+        {
+            StartCoroutine(shieldTower());
         }
     }
 
@@ -80,8 +93,16 @@ public class PowerUp : MonoBehaviour
 
     void increaseHealth()
     {
-        FindObjectOfType<PlayerController>().lives++;
+        FindObjectOfType<PlayerController>().lives += health;
         FindObjectOfType<PlayerController>().healthfx.Play();
+        FindObjectOfType<UIManager>().addLive(FindObjectOfType<PlayerController>().lives);
         Destroy(gameObject);
+    }
+
+    IEnumerator shieldTower()
+    {
+        FindObjectOfType<PlayerController>().isShielded = true;
+        yield return new WaitForSeconds(duration);
+        playerController.isShielded = false;
     }
 }
