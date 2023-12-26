@@ -10,6 +10,7 @@ public enum PowerUpType
     bomb,
     slowDown,
     health,
+    potion,
     shield,
 }
 public class PowerUp : MonoBehaviour
@@ -18,14 +19,19 @@ public class PowerUp : MonoBehaviour
     [SerializeField] float range;
     [SerializeField] float duration;
     [SerializeField] int health;
+    [SerializeField] ParticleSystem bombfx;
+    bool isActive;
     PlayerController playerController;
 
     void Start()
     {
         playerController = FindObjectOfType<PlayerController>();
+        Invoke("deSpawn", 10f);
     }
     private void OnMouseDown()
     {
+        isActive = true;
+
         if(powerType == PowerUpType.bomb)
         {
             destroyNearbyEnemies();
@@ -51,6 +57,11 @@ public class PowerUp : MonoBehaviour
         else if(powerType == PowerUpType.shield)
         {
             StartCoroutine(shieldTower());
+        }
+        
+        else if(powerType == PowerUpType.potion)
+        {
+            recover();
         }
     }
 
@@ -88,6 +99,7 @@ public class PowerUp : MonoBehaviour
             if (Vector3.Distance(enemy.transform.position, transform.position) <= range) Destroy(enemy.gameObject);
             Debug.Log(FindObjectsOfType<EnemyController>().Length - i);
         }
+        Instantiate(bombfx, transform.position, bombfx.transform.rotation);
         Destroy(gameObject);
     }
 
@@ -101,8 +113,30 @@ public class PowerUp : MonoBehaviour
 
     IEnumerator shieldTower()
     {
+        playerController.shieldfx.Play();
         FindObjectOfType<PlayerController>().isShielded = true;
+        transform.position = new Vector3(0, -3f, 0);
         yield return new WaitForSeconds(duration);
         playerController.isShielded = false;
+        playerController.shieldfx.Stop();
+        Destroy(gameObject);
+    }
+
+    void recover()
+    {
+        FindObjectOfType<PlayerController>().healthfx.Play();
+        for (int i = FindObjectOfType<PlayerController>().lives; i <= 5; i++)
+        {
+            FindObjectOfType<PlayerController>().lives++;
+            FindObjectOfType<UIManager>().addLive(FindObjectOfType<PlayerController>().lives);
+        }
+        Debug.Log(FindObjectOfType<PlayerController>().lives);
+        Destroy(gameObject);
+    }
+
+    void deSpawn()
+    {
+        //Despwans if powerup is inactive
+        if(!isActive) Destroy(gameObject);
     }
 }

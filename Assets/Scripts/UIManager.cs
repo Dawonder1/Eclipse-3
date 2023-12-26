@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject[] lives;
     [SerializeField] GameObject gameOverPanel;
     [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI highScoreText;
 
     public void updateScore(int score)
     {
@@ -23,18 +24,27 @@ public class UIManager : MonoBehaviour
     {
         lives[livesNow-1].SetActive(true);
     }
-    void gameOver()
+    public void gameOver()
     {
-        //isGameOver = true;
-        //
+        GameManager.singleton.isGameOver = true;
+        int highscore = PlayerPrefs.GetInt("HighScore", 0);
+        if (GameManager.singleton.score > highscore)
+        {
+            PlayerPrefs.SetInt("HighScore", GameManager.singleton.score);
+            highScoreText.text = "New HighScore: " + PlayerPrefs.GetInt("HighScore", 0);
+        }
+        else
+        {
+            highScoreText.text = "HighScore: " + PlayerPrefs.GetInt("HighScore", 0);
+        }
         gameOverPanel.SetActive(true);
     }
-    void playAgain()
+    public void playAgain()
     {
         SceneManager.LoadScene("Gym");
     }
-    void goToMainMenu()
+    public void goToMainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("Main Menu");
     }
 }

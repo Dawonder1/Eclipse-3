@@ -24,8 +24,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this);
         }
-        PlayerPrefs.GetFloat("soundVolume", soundVolume);
-        PlayerPrefs.GetFloat("musicVolume", musicVolume);
+        soundVolume = PlayerPrefs.GetFloat("soundVolume", 1f);
+        musicVolume = PlayerPrefs.GetFloat("musicVolume", 1f);
         GetComponent<AudioSource>().volume = musicVolume;
     }
 

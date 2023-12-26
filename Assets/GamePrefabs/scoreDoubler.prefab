@@ -14,11 +14,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ad7edc5269e39454a8109c51f8440046, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.70877904
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ad7edc5269e39454a8109c51f8440046, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.886185
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ad7edc5269e39454a8109c51f8440046, type: 3}
       propertyPath: m_LocalRotation.w
@@ -105,3 +105,4 @@ MonoBehaviour:
   range: 0
   duration: 10
   health: 0
+  bombfx: {fileID: 0}

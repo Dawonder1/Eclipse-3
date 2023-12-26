@@ -14,14 +14,15 @@ public class EnemyController : MonoBehaviour
     Animator animator;
     AudioSource audioSource;
     [SerializeField] GameObject[] powerUp;
-    //[SerializeField] GameObject potion;
+    //[SerializeField] AudioClip clip;
 
     void Start()
     {
         soundVolume = GameManager.singleton.soundVolume;
-        audioSource = GetComponent<AudioSource>();
-        audioSource.volume = soundVolume;
+        //audioSource = FGetComponent<AudioSource>();
+        //audioSource.volume = soundVolume;
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        audioSource = GetComponent<AudioSource>();
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
     }
@@ -47,10 +48,11 @@ public class EnemyController : MonoBehaviour
 
     private void attack()
     {
+        //audioSource.PlayOneShot(clip);
         transform.LookAt(player.position);
-        audioSource.Play();
         animator.SetFloat("speed", 0);
         animator.SetTrigger("attack");
+        //Debug.Log(audioSource.isPlaying);
 
         Destroy(gameObject, 2);
     }
