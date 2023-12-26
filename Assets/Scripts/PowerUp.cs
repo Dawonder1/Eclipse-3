@@ -70,6 +70,7 @@ public class PowerUp : MonoBehaviour
         GameManager.singleton.doubleScore = true;
         yield return new WaitForSeconds(duration);
         GameManager.singleton.doubleScore = false;
+        isActive = false;
         Destroy(gameObject);
     }
 
@@ -88,6 +89,7 @@ public class PowerUp : MonoBehaviour
             enemy.gameObject.GetComponent<NavMeshAgent>().speed = 2;
         }
         Debug.Log("Reverting Speed");
+        isActive = false;
         Destroy(gameObject);
     }
 
@@ -100,6 +102,7 @@ public class PowerUp : MonoBehaviour
             Debug.Log(FindObjectsOfType<EnemyController>().Length - i);
         }
         Instantiate(bombfx, transform.position, bombfx.transform.rotation);
+        isActive = false;
         Destroy(gameObject);
     }
 
@@ -108,6 +111,7 @@ public class PowerUp : MonoBehaviour
         FindObjectOfType<PlayerController>().lives += health;
         FindObjectOfType<PlayerController>().healthfx.Play();
         FindObjectOfType<UIManager>().addLive(FindObjectOfType<PlayerController>().lives);
+        isActive = false;
         Destroy(gameObject);
     }
 
@@ -119,6 +123,7 @@ public class PowerUp : MonoBehaviour
         yield return new WaitForSeconds(duration);
         playerController.isShielded = false;
         playerController.shieldfx.Stop();
+        isActive = false;
         Destroy(gameObject);
     }
 
@@ -131,6 +136,7 @@ public class PowerUp : MonoBehaviour
             FindObjectOfType<UIManager>().addLive(FindObjectOfType<PlayerController>().lives);
         }
         Debug.Log(FindObjectOfType<PlayerController>().lives);
+        isActive = false;
         Destroy(gameObject);
     }
 
