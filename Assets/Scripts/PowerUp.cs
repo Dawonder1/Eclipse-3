@@ -20,7 +20,7 @@ public class PowerUp : MonoBehaviour
     [SerializeField] float duration;
     [SerializeField] int health;
     [SerializeField] ParticleSystem bombfx;
-    bool isActive;
+    bool isActive = false;
     PlayerController playerController;
 
     void Start()
@@ -135,7 +135,7 @@ public class PowerUp : MonoBehaviour
             FindObjectOfType<PlayerController>().lives++;
             FindObjectOfType<UIManager>().addLive(FindObjectOfType<PlayerController>().lives);
         }
-        Debug.Log(FindObjectOfType<PlayerController>().lives);
+        Mathf.Clamp(FindObjectOfType<PlayerController>().lives, 0, 5);
         isActive = false;
         Destroy(gameObject);
     }
