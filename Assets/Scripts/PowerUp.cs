@@ -15,7 +15,8 @@ public enum PowerUpType
 }
 public class PowerUp : MonoBehaviour
 {
-    [SerializeField] PowerUpType powerType;
+    public PowerUpType powerType;
+    public int numShields = 0;
     [SerializeField] float range;
     [SerializeField] float duration;
     [SerializeField] int health;
@@ -30,8 +31,6 @@ public class PowerUp : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        isActive = true;
-
         if(powerType == PowerUpType.bomb)
         {
             destroyNearbyEnemies();
@@ -51,7 +50,7 @@ public class PowerUp : MonoBehaviour
 
         else if(powerType == PowerUpType.health)
         {
-            increaseHealth();
+            fillHealth();
         }
 
         else if(powerType == PowerUpType.shield)
@@ -67,6 +66,7 @@ public class PowerUp : MonoBehaviour
 
     IEnumerator doubleScores()
     {
+        isActive = true;
         GameManager.singleton.doubleScore = true;
         yield return new WaitForSeconds(duration);
         GameManager.singleton.doubleScore = false;
@@ -76,10 +76,11 @@ public class PowerUp : MonoBehaviour
 
     IEnumerator slowDownEnemies()
     {
+        isActive = true;
         EnemyController[] enemies = FindObjectsOfType<EnemyController>();
         foreach(EnemyController enemy in enemies)
         {
-            enemy.gameObject.GetComponent<NavMeshAgent>().speed = 1;
+            enemy.gameObject.GetComponent<NavMeshAgent>().speed = 0.5f;
         }
 
         yield return new WaitForSeconds(duration);
@@ -102,29 +103,39 @@ public class PowerUp : MonoBehaviour
             Debug.Log(FindObjectsOfType<EnemyController>().Length - i);
         }
         Instantiate(bombfx, transform.position, bombfx.transform.rotation);
-        isActive = false;
         Destroy(gameObject);
     }
 
-    void increaseHealth()
+    void fillHealth()
     {
-        FindObjectOfType<PlayerController>().lives += health;
+        FindObjectOfType<PlayerController>().addLive();
         FindObjectOfType<PlayerController>().healthfx.Play();
         FindObjectOfType<UIManager>().addLive(FindObjectOfType<PlayerController>().lives);
-        isActive = false;
         Destroy(gameObject);
     }
 
     IEnumerator shieldTower()
     {
-        playerController.shieldfx.Play();
-        FindObjectOfType<PlayerController>().isShielded = true;
-        transform.position = new Vector3(0, -3f, 0);
-        yield return new WaitForSeconds(duration);
-        playerController.isShielded = false;
-        playerController.shieldfx.Stop();
-        isActive = false;
-        Destroy(gameObject);
+        if (FindObjectOfType<PlayerController>().numShields > 0)
+        {
+            playerController.numShields++;
+            Destroy(gameObject);
+        }
+        else
+        {
+            isActive = true;
+            FindObjectOfType<PlayerController>().shieldfx.Play();
+            FindObjectOfType<PlayerController>().numShields++;
+            transform.position = new Vector3(0, -3f, 0);
+            while (FindObjectOfType<PlayerController>().numShields > 0)
+            {
+                yield return new WaitForSeconds(duration);
+                FindObjectOfType<PlayerController>().numShields--;
+            }
+            FindObjectOfType<PlayerController>().shieldfx.Stop();
+            isActive = false;
+            Destroy(gameObject);
+        }
     }
 
     void recover()
@@ -132,11 +143,9 @@ public class PowerUp : MonoBehaviour
         FindObjectOfType<PlayerController>().healthfx.Play();
         for (int i = FindObjectOfType<PlayerController>().lives; i <= 5; i++)
         {
-            FindObjectOfType<PlayerController>().lives++;
+            FindObjectOfType<PlayerController>().addLive();
             FindObjectOfType<UIManager>().addLive(FindObjectOfType<PlayerController>().lives);
         }
-        Mathf.Clamp(FindObjectOfType<PlayerController>().lives, 0, 5);
-        isActive = false;
         Destroy(gameObject);
     }
 

@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public int lives = 5;
+    public int maxLives, lives = 5;
+    public int numShields = 0;
     Rigidbody rb;
     public bool isShielded;
     public ParticleSystem damagefx, healthfx, shieldfx;
@@ -19,10 +20,17 @@ public class PlayerController : MonoBehaviour
 
     public void takeDamage()
     {
-        if (isShielded) return;
-        Mathf.Clamp(lives, 0, 5);
+        if (numShields > 0) return;
         FindObjectOfType<UIManager>().removeLive(lives--);
         damagefx.Play();
-        if (lives <= 0) FindObjectOfType<UIManager>().gameOver();        
+        if (lives <= 0) FindObjectOfType<UIManager>().gameOver();    
+    }
+
+    public void addLive()
+    {
+        if (lives < maxLives)
+        {
+            lives++;
+        }
     }
 }

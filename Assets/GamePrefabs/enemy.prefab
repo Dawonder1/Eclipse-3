@@ -959,9 +959,7 @@ MonoBehaviour:
   - {fileID: 4006057896883460838, guid: a364d5221d9b13d4891ed963f6a07fcd, type: 3}
   - {fileID: 5191195222956775451, guid: 067d1e10609cd7c4ca3b5621d489a539, type: 3}
   - {fileID: 849740173353886575, guid: c0cdb6c5f91709041924b45b6cc934f6, type: 3}
-  - {fileID: 4986270515196752088, guid: 2fde4ac70052b9743919d472f8f2790b, type: 3}
   - {fileID: 99426993388526445, guid: af8d8fa50ab299a4cbfb644d7831676c, type: 3}
-  clip: {fileID: 8300000, guid: 3dbf95d33f8ee400c933c41321bc3fff, type: 3}
 --- !u!195 &351933267232987015
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -7,8 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager singleton;
 
     public bool isGameOver = false;
-    int maxEnemies = 1;
-    int minEnemies = 0;
+    float minEnemies = 0, maxEnemies = 1;
     public int score = 0;
     [SerializeField] GameObject enemyPrefab;
     public float musicVolume, soundVolume;
@@ -34,7 +33,7 @@ public class GameManager : MonoBehaviour
         int enemies = FindObjectsOfType<EnemyController>().Length;
         if (!isGameOver && enemies <= minEnemies)
         {
-            spawnNextWave(maxEnemies++ - minEnemies);
+            spawnNextWave(Mathf.FloorToInt(maxEnemies-minEnemies) );
         }
     }
 
@@ -43,17 +42,20 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < numEnemy; i++)
         {
             //Generate Random Position
-            float spawnPosX = Random.Range(-range(), range());
-            float spawnPosZ = Random.Range(-range(), range());
+            float spawnPosX = randomPos();
+            float spawnPosZ = randomPos();
             Vector3 spawnPos = new Vector3(spawnPosX, 0, spawnPosZ);
+            Debug.Log(spawnPos);
 
             //Spawn enemy
-            Instantiate(enemyPrefab, spawnPos, enemyPrefab.transform.rotation);
+            Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
         }
+        minEnemies += 0.5f;
+        maxEnemies++;
     }
 
-    float range()
+    float randomPos()
     {
-        return Random.Range(10, 25);
+        return Random.Range(0,5) > 2 ? Random.Range(6,25) : -Random.Range(6,25);
     }
 }
